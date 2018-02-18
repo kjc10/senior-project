@@ -27,6 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from faker import Faker
 #Creates Faker instance
 scribe_data = Faker()
+#For random numbers in email
+import random
 #Imports csv to create csv files
 #import csv
 
@@ -62,20 +64,64 @@ stateA = []
 #creates array to store all zipcodes
 zipA = []
 
-#Develops fake IDs and pIDs and places them into the list with no duplicates
+#creates array to store all student emails
+sEmail = []
+
+#creates array to store all birthdates
+sBirthdate = []
+
+#creates array to store all phone numbers
+sPhone = []
+
+#creates array to store gender Yes or No fields
+sGender = []
+
+#creates array to store username
+sUsername = []
+
+#creates array to store grad or undergrad field with U or G
+sGrad = []
+
+#List of real majors at hood
+hoodMajor = []
+
+#creates an array to store majors of fake data
+sMajors = []
+
+#creates array to store the class "FR, SP, JR, SR"
+sClass = []
+
+#creates array for the matric term
+matricTerm = []
+
+#creates array for the credits
+sCredits = []
+
+#creates array for the athelete question
+sAthlete = []
+
+#creates array for the visa question
+sVisa = []
+
+#creates array for advisors
+sAdvisor = []
+
+#creates array for advisor email
+sAdEmail = [] 
+
+#Develops all the fake fields for the database
 for i in range(num):
+    #IDs
     studid = scribe_data.numerify(text="######")
     studid = "000" + studid
+    #Makes sure there aren't any duplicates
     while studid in stuList:
-        print("duplicate")
         studid = scribe_data.numerify(text="######")
         studid = "000" + studid
     stuList.append(studid)
+    #PIDs
     pid = "P" + studid
     pstuList.append(pid)
-
-#Develops fake last names and first names
-for i in range(num):
     #last name
     lastname = scribe_data.last_name()
     lastN.append(lastname)
@@ -100,12 +146,68 @@ for i in range(num):
     #zip code
     zipcode = scribe_data.zipcode_plus4()
     zipA.append(zipcode)
-
+    #username
+    username = firstN[i][0].lower() + middleN[i][0].lower() + lastN[i][0].lower()
+    sUsername.append(username)
+    #email
+    randNum = random.randint(0, 99)
+    studEmail = username + str(randNum) + "@hood.edu"
+    while studEmail in sEmail:
+        randNum = random.randint(0, 99)
+        studEmail = username + str(randNum) + "@hood.edu"
+    sEmail.append(studEmail)
+    #birthday
+    birthmonth = scribe_data.month()
+    birthday = scribe_data.day_of_month()
+    birthyear = scribe_data.year()
+    #makes sure students are not less than 17 years old
+    while int(birthyear) > 2000:
+        birthyear = scribe_data.year()
+    birthdate = birthmonth + "/" + birthday + "/" + birthyear
+    sBirthdate.append(birthdate)
+    #Phone number
+    phonenumber = scribe_data.numerify(text="##########")
+    while phonenumber in sPhone:
+        phonenumber = scribe_data.numerify(text="##########")
+    sPhone.append(phonenumber)
+    #Gender field of Yes or No
+    gender = scribe_data.boolean()
+    if gender == True:
+        gender = "Yes"
+    elif gender == False:
+        gender = "No"
+    sGender.append(gender)
+    #Grad or Undergrad field of U or G
+    grad = scribe_data.boolean()
+    if grad == True:
+        grad = "U"
+    elif grad == False:
+        grad = "G"
+    sGrad.append(grad)
+    #Majors
+    #Class
+    randClass = random.randint(1, 4)
+    if randClass == 1:
+        studClass = "FR"
+    elif randClass == 2:
+        studClass = "SP"
+    elif randClass == 3:
+        studClass = "JR"
+    elif randClass == 4:
+        studClass = "SR"
+    sClass.append(studClass)
+    #Matric Term
+    #Credits
+    #Athlete
+    #Visa
+    #Advisor Name
+    #Advisor Email
+    
+    
 for i in range(num):
-    print(zipA[i])
+    print(sClass[i])
     
-    
-'''   
+'''
 #path to where the CSV file will be stored
 path = "C:\\Users\\karen\\Documents\\student.csv"
 
