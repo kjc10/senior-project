@@ -42,9 +42,8 @@ CREATE TABLE courses (
   instructor_email varchar(50) NOT NULL,
   instructor_username varchar(50) NOT NULL,
   course_grade varchar(45),
-  course_student_ID int(11),
   PRIMARY KEY (student_PID, course_subject),
-  FOREIGN KEY (course_student_ID) references student(student_ID)
+  FOREIGN KEY (student_PID) references student(student_PID)
     ON DELETE cascade
     ON UPDATE cascade
 );
