@@ -33,19 +33,15 @@ CREATE TABLE student (
 
 CREATE TABLE courses (
   student_PID varchar(11),
-  course_subject varchar(75) UNIQUE,
+  course_subject varchar(75) NOT NULL,
   course_title varchar(50) NOT NULL,
   course_term varchar(50) NOT NULL,
-  instructor_PID varchar(11) NOT NULL,
+  instructor_PID varchar(25) NOT NULL,
   instructor_first_name varchar(50) NOT NULL,
   instructor_last_name varchar(50) NOT NULL,
   instructor_email varchar(50) NOT NULL,
   instructor_username varchar(50) NOT NULL,
-  course_grade varchar(45),
-  PRIMARY KEY (student_PID, course_subject),
-  FOREIGN KEY (student_PID) references student(student_PID)
-    ON DELETE cascade
-    ON UPDATE cascade
+  course_grade varchar(45)
 );
 
 CREATE TABLE notes(
@@ -59,9 +55,6 @@ CREATE TABLE notes(
   PRIMARY KEY (notes_course_subject, notes_title),
   FOREIGN KEY (stud_PID) references student(student_PID)
     ON DELETE cascade
-    ON UPDATE cascade,
-  FOREIGN KEY (notes_course_subject) references courses(course_subject)
-    ON DELETE cascade
     ON UPDATE cascade
 );
 
@@ -71,8 +64,6 @@ CREATE TABLE view_notes(
   PRIMARY KEY (stud_PID, course_subj),
   FOREIGN KEY (stud_PID) references student(student_PID)
     ON DELETE cascade
-    ON UPDATE cascade,
-  FOREIGN KEY (course_subj) references courses(course_subject)
-    ON DELETE cascade
     ON UPDATE cascade
 );
+                  
